@@ -2,16 +2,25 @@
 declare(strict_types=1);
 
 ini_set('display_errors', 'stderr');
-include 'vendor/autoload.php';
+require 'vendor/autoload.php';
+
+$container = new \Slim\Container();
+$app = new Slim\App($container);
+
+$app->get('/hello/{name}', function ($request, $response, $args) {
+    $response->getBody()->write('Hello, ' . $args['name']);
+    return $response;
+});
 
 $relay = new Spiral\Goridge\StreamRelay(STDIN, STDOUT);
 $psr7 = new Spiral\RoadRunner\PSR7Client(new Spiral\RoadRunner\Worker($relay));
 
-while ($req = $psr7->acceptRequest()) {
+while ($request = $psr7->acceptRequest()) {
     try {
-        $resp = new \Zend\Diactoros\Response();
-        $resp->getBody()->write('Hello world from RoadRunner!');
-        $psr7->respond($resp);
+        $container['request'] = $request;
+        $container['response'] = new \Zend\Diactoros\Response();
+        $response = $app->run(true);
+        $psr7->respond($response);
     } catch (\Throwable $e) {
         $psr7->getWorker()->error((string)$e);
     }
