@@ -2,10 +2,18 @@ version: '3'
 
 services:
   roadrunner:
-    build: ./containers/roadrunner
-    container_name: "roadrunner"
+    build:
+        context: .
+        dockerfile: ./containers/roadrunner/Dockerfile
+    container_name: roadrunner
     ports:
       - 8080:8080
     volumes:
-      - ./:/var/www/app
-      - ./etc/roadrunner:/etc/roadrunner
+      - ${WORKER_SRC}:/var/www/app
+      - /etc/roadrunner
+
+  composer:
+    image: prooph/composer:7.3-zts
+    command: install
+    volumes:
+      - ${WORKER_SRC}:/app

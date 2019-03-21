@@ -41,4 +41,4 @@ composer show-workers
 ## Directory structure
 - [containers](containers) contains Dockerfile for RoadRunner.
 - etc/roadrunner contains RoadRunner config files.
-- [worker.php](worker.php) worker's entry point file
+- [worker.php](src/worker.php) worker's entry point file
