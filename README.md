@@ -5,7 +5,7 @@ A local docker environment skeleton for [RoadRunner](https://github.com/spiral/r
 
 ### via Composer
 ```
-composer create-project --prefer-dist n1215/roadrunner-docker-skeleton your_app
+composer create-project --prefer-dist sergey-telpuk/roadrunner-docker-skeleton your_app
 ```
 
 ## Start/Stop the docker container

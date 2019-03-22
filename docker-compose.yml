@@ -1,19 +1,21 @@
-version: '3'
+version: '3.7'
 
 services:
-  roadrunner:
-    build:
-        context: .
-        dockerfile: ./containers/roadrunner/Dockerfile
-    container_name: roadrunner
-    ports:
-      - 8080:8080
-    volumes:
-      - ${WORKER_SRC}:/var/www/app
-      - /etc/roadrunner
-
-  composer:
-    image: prooph/composer:7.3-zts
-    command: install
-    volumes:
-      - ${WORKER_SRC}:/app
+    roadrunner:
+        build:
+            context: .
+            dockerfile: ./containers/roadrunner/Dockerfile
+        container_name: roadrunner
+        ports:
+            - 8080:8080
+        volumes:
+            - ${WORKER_SRC}:/var/www/app
+    
+    composer:
+        build:
+            context: ./containers/php
+            dockerfile: php-composer.docker
+        tty: true
+        command: install
+        volumes:
+            - ${WORKER_SRC}:/app

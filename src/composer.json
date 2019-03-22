@@ -1,13 +1,13 @@
 {
-    "name": "n1215/roadrunner-docker-skeleton",
+    "name": "sergey-telpuk/roadrunner-docker-skeleton",
     "description": "A local docker environment skeleton for RoadRunner",
     "keywords": ["roadrunner", "docker"],
     "type": "project",
     "license": "MIT",
     "authors": [
         {
-            "name": "n1215",
-            "email": "knakae1215@gmail.com"
+            "name": "sergey",
+            "email": "telpuk.sergey@gmail.com"
         }
     ],
     "require": {
