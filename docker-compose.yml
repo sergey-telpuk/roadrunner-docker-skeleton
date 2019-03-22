@@ -3,8 +3,8 @@ version: '3.7'
 services:
     roadrunner:
         build:
-            context: .
-            dockerfile: ./containers/roadrunner/Dockerfile
+            context: ./containers/roadrunner
+            dockerfile: Dockerfile
         container_name: roadrunner
         ports:
             - 8080:8080
@@ -15,7 +15,7 @@ services:
         build:
             context: ./containers/php
             dockerfile: php-composer.docker
-        tty: true
+        container_name: rr-composer
         command: install
         volumes:
             - ${WORKER_SRC}:/app
