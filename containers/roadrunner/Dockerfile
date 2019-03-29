@@ -1,13 +1,11 @@
-FROM golang:1.11 as builder
-
-ENV GO111MODULE on
-ENV RR_VERSION v1.3.0
+FROM golang:latest as builder
+ARG GO111MODULE
 
 RUN apt-get update && apt-get install -y --no-install-recommends git
 
 # Build RoadRunner
 WORKDIR /go/src
-RUN git clone --depth 1 --branch ${RR_VERSION} https://github.com/spiral/roadrunner \
+RUN git clone https://github.com/spiral/roadrunner \
   && cd /go/src/roadrunner \
   && make \
   && make install
@@ -22,10 +20,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Copy RoadRunner binary and config
 COPY --from=builder /go/src/roadrunner/rr /usr/local/bin/rr
-COPY ./containers/roadrunner/config /etc/roadrunner
+COPY config /etc/roadrunner
 
 # Install PHP Extensions
-RUN docker-php-ext-install zip opcache
+RUN docker-php-ext-install zip opcache pdo pdo_mysql
 
 RUN docker-php-ext-enable opcache
 

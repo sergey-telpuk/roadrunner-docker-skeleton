@@ -1,16 +1,19 @@
-version: '3.7'
+version: '3.3'
 
 services:
     roadrunner:
         build:
             context: ./containers/roadrunner
             dockerfile: Dockerfile
+            args:
+              - GO111MODULE=${GO111MODULE}
         container_name: roadrunner
         ports:
             - 8080:8080
         volumes:
             - ${WORKER_SRC}:/var/www/app
-    
+            - /etc/roadrunner
+
     composer:
         build:
             context: ./containers/php
