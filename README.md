@@ -1,8 +1,8 @@
 # roadrunner-docker-skeleton
 A local docker environment skeleton for [RoadRunner](https://github.com/spiral/roadrunner), the PHP application server written in golang.
 
-## Nakefile commands
-
+## Makefile commands
+```
 init: build up
 
 build: ## Start all or c=<name> containers in foreground
@@ -26,7 +26,7 @@ restart: ## Restart all or c=<name> containers
 
 composer-install: ## install dependencies
 	docker-compose -f docker-compose.yml run composer install
-
+```
 ### Start
 
 ```
