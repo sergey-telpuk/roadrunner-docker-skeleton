@@ -27,10 +27,19 @@ restart: ## Restart all or c=<name> containers
 composer-install: ## install dependencies
 	docker-compose -f docker-compose.yml run composer install
 ```
+
+### Init
+```
+1. copy sample.env into .env
+2. make init
+```
+
 ### Start
 
 ```
 docker-compose up -d
+or
+make up
 ```
 
 and access http://localhost:8080
@@ -39,6 +48,8 @@ and access http://localhost:8080
 
 ```
 docker-compose down
+or
+make stop
 ```
 
 ## Utils
@@ -46,13 +57,13 @@ docker-compose down
 Reset PHP workers in the container. (to reload your PHP source code)
 
 ```
-composer reset-workers
+docker exec roadrunner rr -c /etc/roadrunner/.rr.yaml http:reset
 ```
 
 Show PHP workers' status
 
 ```
-composer show-workers
+docker exec roadrunner rr -c /etc/roadrunner/.rr.yaml http:workers -i
 ```
 
 ## Directory structure
